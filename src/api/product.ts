@@ -8,9 +8,9 @@ export const getAllproduct_id = () =>{
   return api.get("/products/product_id")
 }
 
-export const getProductById = (id: number | string) => {
-  return api.get(`/products/${id}`);
-};
+export const getProductBySC = (special_code: number | string) => {
+  return api.get(`/products/${special_code}`);
+};  
 
 export const getAllProductsCard = () => {
   return api.get("/products/all_productcard");
@@ -23,3 +23,7 @@ export const getTOP5 = () => {
 export const getNEW5 = () => {
   return api.get("/products/new5");
 };
+
+export const postExplore = (data:{special_code:string[]}) =>{
+  return api.post("/explores",data)
+}

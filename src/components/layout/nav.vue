@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import router from "@/router";
-import { useUserStore } from "@/stores/index";
-import { computed, ref } from "vue";
+import { useStateStore, useUserStore } from "@/stores/index";
+import { computed, ref, watch } from "vue";
 
 const userStore = useUserStore();
+const stateStore = useStateStore();
 const member = ref(false);
 const name = ref("");
 const dialog = ref(false);
@@ -16,16 +17,23 @@ const logout = () => {
   name.value = "";
   member.value = false;
   userStore.clearUser();
-  history.go(0);
+  router.push('/')
 };
 const mount = () => {
   console.log("mounttt");
-  userStore.loadUserFromSession();
   if (userStore.user) {
     name.value = userStore.user?.username;
     role.value = userStore.user?.role;
   }
 };
+
+watch(() => stateStore.justlogin, (val) => {
+  if (val) {
+    stateStore.justlogin = false;
+    history.go(0);
+  }
+});
+
 const toindex = () => {
   router.push("/");
 };

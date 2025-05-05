@@ -22,12 +22,10 @@ declare module 'vue-router/auto-routes' {
     '/activity': RouteRecordInfo<'/activity', '/activity', Record<never, never>, Record<never, never>>,
     '/explore': RouteRecordInfo<'/explore', '/explore', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
-    '/products': RouteRecordInfo<'/products', '/products', Record<never, never>, Record<never, never>>,
-    '/user/manage': RouteRecordInfo<'/user/manage', '/user/manage', Record<never, never>, Record<never, never>>,
-    '/user/user_cart': RouteRecordInfo<'/user/user_cart', '/user/user_cart', Record<never, never>, Record<never, never>>,
-    '/user/user_fav': RouteRecordInfo<'/user/user_fav', '/user/user_fav', Record<never, never>, Record<never, never>>,
-    '/user/user_info': RouteRecordInfo<'/user/user_info', '/user/user_info', Record<never, never>, Record<never, never>>,
-    '/user/user_order': RouteRecordInfo<'/user/user_order', '/user/user_order', Record<never, never>, Record<never, never>>,
-    '/vendor': RouteRecordInfo<'/vendor', '/vendor', Record<never, never>, Record<never, never>>,
+    '/products/': RouteRecordInfo<'/products/', '/products', Record<never, never>, Record<never, never>>,
+    '/products/[special_code]': RouteRecordInfo<'/products/[special_code]', '/products/:special_code', { special_code: ParamValue<true> }, { special_code: ParamValue<false> }>,
+    '/user/[section]': RouteRecordInfo<'/user/[section]', '/user/:section', { section: ParamValue<true> }, { section: ParamValue<false> }>,
+    '/vendor/': RouteRecordInfo<'/vendor/', '/vendor', Record<never, never>, Record<never, never>>,
+    '/vendor/[VendorName]': RouteRecordInfo<'/vendor/[VendorName]', '/vendor/:VendorName', { VendorName: ParamValue<true> }, { VendorName: ParamValue<false> }>,
   }
 }

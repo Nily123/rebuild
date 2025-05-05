@@ -19,4 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
   }
+  export interface RouteParams {
+    VendorName: string;
+  }
 }

@@ -6,6 +6,7 @@ interface product_info {
   id: number;
   product_id: number;
   special_code: string;
+  special_code0: string;
   image_url: string;
   sequence: number;
   product_name: string;
@@ -38,7 +39,7 @@ getNEW5data();
 </script>
 
 <template>
-    <v-row align-item="center" align-content="center" justify="space-evenly">
+    <v-row class="w-[80vw] mx-a" align-item="center" align-content="center" justify="space-evenly">
         <v-col v-for="item in new5">
             <product_card :prop_data="item"/>
         </v-col>        

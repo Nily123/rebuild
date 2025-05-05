@@ -6,6 +6,7 @@ interface product_info {
   id: number;
   product_id: number;
   special_code: string;
+  special_code0: string;
   image_url: string;
   sequence: number;
   product_name: string;

@@ -10,11 +10,12 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import 'virtual:uno.css'
 import '@mdi/font/css/materialdesignicons.css'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import router from './router/index'   
 import App from './App.vue'
 
-
+pinia.use(piniaPluginPersistedstate)
 
 const vuetify = createVuetify({
     components,
@@ -26,7 +27,3 @@ const vuetify = createVuetify({
 
 
 createApp(App).use(router).use(pinia).use(vuetify).mount('#app')
-
-import { useUserStore } from './stores/index'
-const userStore = useUserStore()
-userStore.loadUserFromSession()

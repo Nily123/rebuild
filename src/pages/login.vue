@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { loginUser } from "../api/auth";
-import { useUserStore } from '../stores/index'
+import { useStateStore, useUserStore } from '../stores/index'
 import router from "@/router";
 const userStore = useUserStore();
+const stateStore = useStateStore();
 
 const re = ref(false);
 const login_err =ref(false);
@@ -40,6 +41,7 @@ const login = async () => {
     });
     console.log("login successful!!")
     login_suc.value = true;
+    stateStore.justlogin = true;
     router.push("/");
   } catch (err) {
     login_err.value = true;

@@ -7,6 +7,7 @@ interface product_info {
   id: number;
   product_id: number;
   special_code: string;
+  special_code0: string;
   image_url: string;
   sequence: number;
   product_name: string;
@@ -78,7 +79,7 @@ const processProductName = () => {
 
 
 const fav_check =() =>{
-  store.user?.favorites.map((item)=>{
+  store.user?.favorites.map((item: number)=>{
   if (item == props.prop_data.product_id){
     fav.value = true;
   }})
@@ -103,7 +104,7 @@ init();
 </script>
 
 <template>
-  <v-card class="mx-auto" max-width="250" max-height="350" min-width="220" hover>
+  <v-card class="mx-auto" max-width="250" max-height="350" min-width="220" hover :to="`/products/${prop_data.special_code0}`">
     <div class="h-[200px] overflow-hidden">
         <v-img height="200px" :src="prop_data.image_url" cover class="hover:scale-120"></v-img>
     </div>

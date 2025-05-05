@@ -10,9 +10,11 @@ const api = axios.create({
 
 // 自動攔截每個請求，加上 Authorization header
 api.interceptors.request.use((config) => {
-  const user = sessionStorage.getItem('user');
+  const user = localStorage.getItem('user');
   if (user) {
-    const token = JSON.parse(user).token;
+    const parsed = JSON.parse(user);
+      const token = parsed.user.token;
+    console.log("TOKEN:", token);
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;

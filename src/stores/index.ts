@@ -1,87 +1,109 @@
 import { defineStore } from 'pinia'
-import { adduserfav , deluserfav } from '@/api/fav'
-import { addItemToCart , removeItemFromCart } from '@/api/cart'
-export const useUserStore = defineStore ('user',
-    {
-        state: () => ({
-            user: null as null | {
-              id: number,
-              username: string,
-              email:string,
-              role: string,
-              token: string,
-              favorites: number[],
-              carts:{ special_code: string; quantity: number }[]
-            },
-          }),
-        actions: {
-            setUser(userData: any) {
-              this.user = userData
-              sessionStorage.setItem('user', JSON.stringify(userData))
-              
-            },
-        
-            clearUser() {
-              this.user = null
-              sessionStorage.removeItem('user')
-              
-            },
-        
-            loadUserFromSession() {
-              const sessionData = sessionStorage.getItem('user')
-              if (sessionData) {
-                this.user = JSON.parse(sessionData)
-                console.log('session 1;')
-              }
-              
-            },
+import type { PersistenceOptions } from 'pinia-plugin-persistedstate'
+import { adduserfav, deluserfav } from '@/api/fav'
+import { addItemToCart, removeItemFromCart } from '@/api/cart'
 
-            //收藏api觸發
-            async addToFavorites(product_id: number) {
-              if (this.user) {
-                const user_id = this.user.id;
-                const data = {user_id,product_id};
-                const success = await adduserfav(data);
-                if (success) {
-                  this.user.favorites.push(product_id)
-                }
-              }
-            },
+// 定義 User 的型別
+interface CartItem {
+  special_code: string
+  quantity: number
+}
 
-            async DelToFavorites(product_id: number) {
-              if (this.user) {
-                const user_id = this.user.id;
-                const data = {user_id,product_id};
-                const success = await deluserfav(data);
-                if (success) {
-                  this.user.favorites = this.user.favorites.filter(id => id !== product_id)
-                }
-              }
-            },
+interface User {
+  id: number
+  username: string
+  email: string
+  role: string
+  token: string
+  favorites: number[]
+  carts: CartItem[]
+}
 
-            //購物車觸發
-            async addToCarts(special_code: string,quantity: number) {
-              if (this.user) {
-                const user_id = this.user.id;
-                const data = {user_id,special_code,quantity};
-                const success = await addItemToCart(data);
-                if (success) {
-                  this.user.carts.push({ special_code, quantity });
-                }
-              }
-            },
+export const useStateStore = defineStore('state',{
+  state: ()=>({
+    justlogin: false,
+  })
+}
 
-            async DelToCarts(special_code: string) {
-              if (this.user) {
-                const user_id = this.user.id;
-                const data = {user_id,special_code};
-                const success = await removeItemFromCart(data);
-                if (success) {
-                  this.user.carts = this.user.carts.filter(item => item.special_code !== special_code);
-                }
-              }
-            },
-            
-        },
-    }
 )
+
+// 正式建立 store
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    user: null as User | null,
+  }),
+
+  actions: {
+    // 登入時設定使用者資料
+    setUser(userData: User) {
+      this.user = userData
+    },
+
+    // 登出時清空使用者資料
+    clearUser() {
+      this.user = null
+    },
+
+    // 收藏商品
+    async addToFavorites(product_id: number) {
+      if (!this.user) return
+
+      const success = await adduserfav({
+        user_id: this.user.id,
+        product_id,
+      })
+
+      if (success) {
+        this.user.favorites.push(product_id)
+      }
+    },
+
+    // 移除收藏
+    async DelToFavorites(product_id: number) {
+      if (!this.user) return
+
+      const success = await deluserfav({
+        user_id: this.user.id,
+        product_id,
+      })
+
+      if (success) {
+        this.user.favorites = this.user.favorites.filter((id: number) => id !== product_id)
+      }
+    },
+
+    // 加入購物車
+    async addToCarts(special_code: string, quantity: number) {
+      if (!this.user) return
+
+      const success = await addItemToCart({
+        user_id: this.user.id,
+        special_code,
+        quantity,
+      })
+
+      if (success) {
+        this.user.carts.push({ special_code, quantity })
+      }
+    },
+
+    // 移除購物車商品
+    async DelToCarts(special_code: string) {
+      if (!this.user) return
+
+      const success = await removeItemFromCart({
+        user_id: this.user.id,
+        special_code,
+      })
+
+      if (success) {
+        this.user.carts = this.user.carts.filter((item: { special_code: string }) => item.special_code !== special_code)
+      }
+      return success;
+    },
+  },
+
+  persist: {
+    storage: localStorage,
+  } as PersistenceOptions,
+})
