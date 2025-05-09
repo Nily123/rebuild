@@ -33,7 +33,6 @@ const getpro_ids = async () => {
 const selectedNames = ref<string[]>([]);
 const selectedNotes = ref<string[]>([]);
 const ifselected = ref(0);
-const select = ref();
 // 處理從子組件來的篩選條件
 const handleFilterUpdate = (filters: {
   names: string[];

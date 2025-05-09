@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type VendorName from "@/pages/vendor/[VendorName].vue";
-
 interface vendor {
   id: number;
   name: string;
@@ -11,7 +9,7 @@ interface vendor {
   img_pic: string;
   slug:string;
 }
-const props = defineProps<{
+defineProps<{
   prop_data: vendor;
 }>();
 </script>

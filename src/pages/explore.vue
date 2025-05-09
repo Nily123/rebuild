@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { postExplore } from "@/api/product";
 import product_card from "@/components/components/product_card.vue";
-import Special_code from "./products/[special_code].vue";
 interface qus {
   question: string;
   options: {

@@ -24,8 +24,6 @@ interface product_info {
 const props = defineProps<{
   prop_data: product_info;
 }>();
-
-const flavor = ref(props.prop_data.ingredients.香調);
 const name_size = ref(0);
 
 const processProductName = () => {
