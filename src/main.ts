@@ -12,6 +12,9 @@ import 'virtual:uno.css'
 import '@mdi/font/css/materialdesignicons.css'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
+import  VueVideoPlayer  from '@videojs-player/vue'
+import 'video.js/dist/video-js.css';
+
 import router from './router/index'   
 import App from './App.vue'
 
@@ -26,4 +29,4 @@ const vuetify = createVuetify({
   })
 
 
-createApp(App).use(router).use(pinia).use(vuetify).mount('#app')
+createApp(App).use(router).use(pinia).use(vuetify).use(VueVideoPlayer).mount('#app')

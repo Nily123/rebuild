@@ -4,8 +4,8 @@ export const getAllProducts = () => {
   return api.get("/products");
 };
 
-export const getAllproduct_id = () =>{
-  return api.get("/products/product_id")
+export const getAllproduct_name = () =>{
+  return api.get("/products/product_name")
 }
 
 export const getProductBySC = (special_code: number | string) => {

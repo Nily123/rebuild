@@ -2,12 +2,14 @@
 import router from "@/router";
 import { useStateStore, useUserStore } from "@/stores/index";
 import { computed, ref, watch } from "vue";
+import Login from "@/pages/login.vue";
 
 const userStore = useUserStore();
 const stateStore = useStateStore();
 const member = ref(false);
 const name = ref("");
 const dialog = ref(false);
+const dialogVisible =ref(false);
 const role = ref(userStore.user?.role);
 if (userStore.user) {
   name.value = userStore.user?.username;
@@ -17,6 +19,7 @@ const logout = () => {
   name.value = "";
   member.value = false;
   userStore.clearUser();
+  dialog.value = false;
   router.push('/')
 };
 const mount = () => {
@@ -78,7 +81,7 @@ mount();
                 title="請先登入 >.0~"
               >
                 <template v-slot:append>
-                  <v-btn to="/login" class="ml-1">點我</v-btn>
+                  <v-btn @click="dialogVisible = true;" class="ml-1">點我</v-btn>
                 </template>
               </v-list-item>
             </v-list>
@@ -88,6 +91,7 @@ mount();
             <v-list v-if="isLoggedIn">
               <v-list-item v-if="role === 'customer'">
                 <v-btn
+                  class="hover:text-[#DBAD64]"
                   variant="text"
                   to="/user/user_info"
                   prepend-icon="mdi-account-details"
@@ -97,6 +101,7 @@ mount();
               </v-list-item>
               <v-list-item v-if="role === 'customer'">
                 <v-btn
+                  class="hover:text-[#DBAD64]"
                   variant="text"
                   to="/user/user_fav"
                   prepend-icon="mdi-heart"
@@ -106,6 +111,7 @@ mount();
               </v-list-item>
               <v-list-item v-if="role === 'customer'">
                 <v-btn
+                  class="hover:text-[#DBAD64]"
                   variant="text"
                   to="/user/user_cart"
                   prepend-icon="mdi-cart"
@@ -115,6 +121,7 @@ mount();
               </v-list-item>
               <v-list-item v-if="role === 'customer'">
                 <v-btn
+                  class="hover:text-[#DBAD64]"
                   variant="text"
                   to="/user/user_order"
                   prepend-icon="mdi-text-box"
@@ -124,6 +131,7 @@ mount();
               </v-list-item>
               <v-list-item v-if="role === 'staff' || role === 'manager'">
                 <v-btn
+                  class="hover:text-[#DBAD64]"
                   variant="text"
                   to="/user/manage"
                   prepend-icon="mdi-cog"
@@ -146,11 +154,11 @@ mount();
         <template v-slot:extension v-if="isHovering">
           <v-tabs class="bg-white w-full z-98">
             <v-spacer></v-spacer>
-            <v-tab text="首頁" exact to="/" color="amber-lighten-1" class="hover:text-[#EAB653]"></v-tab>
-            <v-tab text="香氛" exact to="/products" color="amber-lighten-1"  class="hover:text-[#EAB653]"></v-tab>
-            <v-tab text="品牌" exact to="/vendor" color="amber-lighten-1" class="hover:text-[#EAB653]"></v-tab>
-            <v-tab text="探索" exact to="/explore" color="amber-lighten-1" class="hover:text-[#EAB653]"></v-tab>
-            <v-tab text="活動" exact to="/activity" color="amber-lighten-1" class="hover:text-[#EAB653]"></v-tab>
+            <v-tab text="首頁" exact to="/" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
+            <v-tab text="香氛" exact to="/products" color="amber-lighten-1"  class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
+            <v-tab text="品牌" exact to="/vendor" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
+            <v-tab text="探索" exact to="/explore" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
+            <v-tab text="活動" exact to="/activity" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
             <v-spacer></v-spacer>
           </v-tabs>
         </template>
@@ -169,6 +177,7 @@ mount();
       </template>
     </v-card>
   </v-dialog>
+  <Login v-model:visible="dialogVisible" />
 </template>
 
 <style scoped></style>

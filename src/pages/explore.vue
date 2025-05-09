@@ -432,7 +432,7 @@ const anplay =() =>{
 </script>
 
 <template>
-  <v-container class="w-[60vw] m-a">
+  <v-container class="w-[90vw] sm-w-[60vw] m-a">
     <v-card
       location="center"
       class="border-2px border-[#ECBD69]"
@@ -443,7 +443,7 @@ const anplay =() =>{
           v-show="step == 0"
           class="h-[300px] items-center text-center flex bg-[linear-gradient(45deg,#F1EFD2,white)]"
         >
-          <div class="text-center m-a font-800 text-6">
+          <div class="text-center m-a font-800 text-6 sm-p-0 px-4">
             準備好一起展開尋找香水的探索之旅了嗎
             <br />
             <v-btn
@@ -536,7 +536,7 @@ const anplay =() =>{
                 </v-row>
                 <div class="flex mt-4">
                     <v-spacer></v-spacer>
-                <v-btn variant="flat" color="#EDBB65" class="font-800" @click="replay()"> 再探索一次 </v-btn>
+                <v-btn variant="flat" color="#EDBB65" class="text-white font-800" @click="replay()"> 再探索一次 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn variant="flat" color="#EDBB65" class="text-white font-800" @click="anplay()"> 從另一個故事出發 </v-btn>
                 <v-spacer></v-spacer>

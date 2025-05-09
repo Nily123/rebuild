@@ -43,12 +43,12 @@ init();
 </script>
 
 <template>
-<v-container class="w-[80%] ">
+<v-container class="w-[80%] px-0 sm-px-4">
     <div>
         <v-input></v-input>
     </div>
 <v-row >
-    <v-col col="4" v-for="i in vendor_data">
+    <v-col col="10" lg="4" md="6" sm="6" v-for="i in vendor_data">
         <vendor_card :prop_data="i"></vendor_card>
     </v-col>
     

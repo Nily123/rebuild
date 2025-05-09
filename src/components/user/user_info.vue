@@ -73,9 +73,9 @@ const savePassword = () => {
 </script>
 
 <template>
-  <v-container>
-    <v-card class="p-4 w-[60vw] max-w-[600px]">
-      <v-sheet class="mx-auto min-w-[300px]">
+  <v-container class="">
+    <v-card class="m-a sm-p-4 p-4 w-[280px] sm-w-[40vw] max-w-[330px]">
+      <v-sheet class="mx-auto w-[250px] sm-min-w-[300px]">
         <v-form ref="form">
           <v-text-field
             v-model="name"

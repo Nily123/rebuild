@@ -41,7 +41,7 @@ export const useUserStore = defineStore('user', {
 
     // 登出時清空使用者資料
     clearUser() {
-      this.user = null
+      localStorage.removeItem('user');
     },
 
     // 收藏商品

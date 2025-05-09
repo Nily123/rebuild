@@ -81,25 +81,25 @@ getdata();
 </script>
 
 <template>
-  <v-container class="w-[60vw] mx-a min-w-[500px]" >
-    <div class="h-[630px] overflow-auto w-[100%]">
-      <v-row class="w-[100%] items-center">
-        <v-col cols="1">
+  <v-container class=" sm-w-[60vw] mx-a sm-min-w-[500px]" >
+    <div class="sm-h-[630px] overflow-auto w-[100%]">
+      <v-row class="w-[100%] items-center text-3 sm-text-4">
+        <v-col cols="0" sm="1">
 
         </v-col>
-        <v-col cols="2">
+        <v-col cols="2" sm="2">
             
         </v-col>
-        <v-col cols="5">
+        <v-col cols="4" sm="5">
             名稱
         </v-col>
-        <v-col cols="1">
+        <v-col cols="2" sm="1">
          數量   
         </v-col>
-        <v-col cols="2">
+        <v-col cols="2" sm="2">
             金額
         </v-col>
-        <v-col cols="1">
+        <v-col cols="2" sm="1">
             刪除
         </v-col>
       </v-row>
@@ -107,16 +107,17 @@ getdata();
         v-if="data"
         v-for="(item, index) in data"
         :key="item.special_code"
-        class="w-[100%] items-center border-t-solid border-t-1px border-[#BC8E40]"
+        class="w-[100%] items-center border-t-solid border-t-1px border-[#BC8E40] text-3 sm-text-4"
       >
         <v-col class="gap-2">
           <v-checkbox
+          class="items-center translate-y-8px"
             :model-value="
               buyItems.some((buy) => buy.special_code === item.special_code)
             "
             @change="toggleItem(item)"
         /></v-col>
-        <v-col>
+        <v-col cols="2" sm="2">
           <v-img
             :src="item.image_url"
             max-width="50"
@@ -125,22 +126,22 @@ getdata();
           ></v-img
         ></v-col>
         <v-col
-          cols="5"
+           cols="3" sm="5"
           @click="$router.push(`/products/${item.special_code0}`)"
         >
           {{ item.name }}
         </v-col>
         <v-col>
-          <div>
+          <div  cols="2" sm="2">
             {{ item.quantity }}
           </div>
         </v-col>
-        <v-col>
+        <v-col  cols="2" sm="2">
           <div>
             {{ item.quantity * item.price }}
           </div>
         </v-col>
-        <v-col>
+        <v-col  cols="2" sm="1">
           <v-btn icon="mdi-trash-can-outline" variant="text" @click="delcart(item.special_code)"></v-btn>
         </v-col>
       </v-row>

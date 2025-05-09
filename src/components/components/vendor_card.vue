@@ -19,8 +19,7 @@ const props = defineProps<{
 <template>
 <router-link :to="`/vendor/${prop_data.slug}`">
   <v-card
-    class="mx-auto"
-    width="400"
+    class="mx-auto xl-max-w-[400px] xl-w-[25vw] lg-w-[30vw] sm-w-[40vw] w-[300px]"
     hover
   >
   

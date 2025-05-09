@@ -71,12 +71,12 @@ onMounted(() => {
         <v-img class="w-full sticky" cover min-height="100" max-height="300" :src="vendorData.img_pic">
           <v-card-item class="bg-gradient-linear shape-[45deg] from-black/50 via-gray/10 to-white/10 absolute bottom-0 w-full">
             <v-card-subtitle class="text-white font-800 text-left">{{ vendorData.sub_title }}</v-card-subtitle>
-            <v-card-title style="line-height:1.3" class="text-white font-1000 text-24 m-0 p-0 line-height-none text-left">{{ vendorData.name }}</v-card-title>
+            <v-card-title style="line-height:1.3" class="text-white font-1000 sm-text-24 m-0 p-0 line-height-none text-left">{{ vendorData.name }}</v-card-title>
           </v-card-item>
         </v-img>
       </v-card>
       <v-row>
-        <v-col v-for="item in productData" :key="item.special_code">
+        <v-col cols="6" sm="6" md="4" lg="" class="m-a" v-for="item in productData" :key="item.special_code">
           <Product_card :prop_data="item" />
         </v-col>
       </v-row>

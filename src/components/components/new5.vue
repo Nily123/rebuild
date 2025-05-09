@@ -39,7 +39,7 @@ getNEW5data();
 </script>
 
 <template>
-    <v-row class="w-[80vw] mx-a" align-item="center" align-content="center" justify="space-evenly">
+    <v-row class="w-[80vw] mx-a border-2px border-[#997A5C] border-solid py-4" align-item="center" align-content="center" justify="space-evenly">
         <v-col v-for="item in new5">
             <product_card :prop_data="item"/>
         </v-col>        

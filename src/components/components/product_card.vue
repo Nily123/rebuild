@@ -104,18 +104,18 @@ init();
 </script>
 
 <template>
-  <v-card class="mx-auto" max-width="250" max-height="350" min-width="220" hover :to="`/products/${prop_data.special_code0}`">
-    <div class="h-[200px] overflow-hidden">
-        <v-img height="200px" :src="prop_data.image_url" cover class="hover:scale-120"></v-img>
+  <v-card class="mx-auto hover:text-[#B58F52] hover:bg-white hover:font-1000 sm-max-w-[250px] sm-max-h-[350px] sm-min-w-[220px] max-w-[125px] min-w-[110px] max-h-[250px]" hover :to="`/products/${prop_data.special_code0}`">
+    <div class="sm-h-[200px] h-[100px] overflow-hidden">
+        <v-img class="sm-h-[200px] h-[100px] hover:scale-120" :src="prop_data.image_url"></v-img>
     </div>
     <v-card-title
-      class="break-all h-[70px] items-center whitespace-pre-line"
+      class="break-all h-[45px] sm-h-[70px] items-center whitespace-pre-line sm-text-base text-[10px]"
       :class="[
         name_size == 1 
-          ? 'text-base'
+          ? ''
           : ' ',
         name_size == 2 
-        ?'text-base leading-[0px]'
+        ?' leading-[0px]'
         :' '
       ]"
       style="line-height: 1.2;"
@@ -123,7 +123,7 @@ init();
       {{ prop_data.product_name }}
     </v-card-title>
 
-    <v-card-subtitle>
+    <v-card-subtitle class="sm-text-base text-[10px]">
       {{ prop_data.vendor_name }}
     </v-card-subtitle>
 

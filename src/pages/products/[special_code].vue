@@ -139,7 +139,7 @@ getdata(special_code);
 <template>
   <v-container max-width="1400">
     <v-row class="pb-4">
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-carousel  mandatory touch  show-arrows="hover" model-value="0">
           <v-carousel-item
             v-for="(i,key) in variant_image_url"
@@ -151,7 +151,7 @@ getdata(special_code);
         </v-carousel>
       </v-col>
 
-      <v-col cols="6" class="md-min-h-[500px]">
+      <v-col cols="12" sm="6" class="md-min-h-[500px]">
         <v-row class="mt-8 md-min-h-[150px] text-left mx-4">
           <v-col class="text-10">
             {{ data?.product_info.name }}
@@ -202,7 +202,7 @@ getdata(special_code);
           </v-col>
         </v-row>
         <v-row class="md-min-h-[100px] mx-4">
-          <v-col>
+          <v-col cols="12" sm="4">
             <v-number-input
               max-width="300"
               min-width="200"
@@ -218,7 +218,7 @@ getdata(special_code);
           </v-col>
 
           <v-spacer></v-spacer>
-          <v-col>
+          <v-col  cols="12" sm="4">
             <v-btn
               variant="flat"
               rounded="xl"

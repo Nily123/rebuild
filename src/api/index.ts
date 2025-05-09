@@ -11,9 +11,9 @@ const api = axios.create({
 // 自動攔截每個請求，加上 Authorization header
 api.interceptors.request.use((config) => {
   const user = localStorage.getItem('user');
-  if (user) {
+  if (user !== null) {
     const parsed = JSON.parse(user);
-      const token = parsed.user.token;
+    const token = parsed.user.token;
     console.log("TOKEN:", token);
     config.headers.Authorization = `Bearer ${token}`;
   }

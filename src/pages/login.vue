@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { loginUser } from "../api/auth";
 import { useStateStore, useUserStore } from '../stores/index'
 import router from "@/router";
@@ -21,6 +21,20 @@ const data = ref({
 });
 const terms = ref(false);
 
+const props = defineProps<{
+  visible: boolean
+}>()
+
+const dialogVisible = ref(props.visible)
+
+watch(() => props.visible, (val) => {
+  dialogVisible.value = val
+})
+watch(dialogVisible, (val) => {
+  emit('update:visible', val)
+})
+
+const emit = defineEmits(['update:visible'])
 const login = async () => {
   try {
     const res = await loginUser({
@@ -48,11 +62,13 @@ const login = async () => {
     console.log("Fail login!!");
   }
 };
+
+
 </script>
 
 <template>
  
-  <v-container>
+  <v-dialog v-model="dialogVisible" persistent class="w-[50vw] sm-m-a m-0">
      <v-alert type="error" variant="tonal" closable
         position="fixed"
         max-width="500"
@@ -73,7 +89,14 @@ const login = async () => {
         text=" 登入成功!!"
         @click:close="login_suc = !login_suc"
       ></v-alert>
-    <v-card class="mx-auto" max-width="344" title="使用者登入" v-if="!re">
+    <v-card class="mx-auto w-[30vw] min-w-[300px]" v-if="!re">
+      <v-card-title class="flex items-center font-1000 ml-4">
+        登入
+        <v-spacer />
+        <v-btn variant="text" icon @click="dialogVisible = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-card-title>
       <v-container>
         <v-text-field
           v-model="data.Account"
@@ -90,21 +113,23 @@ const login = async () => {
           variant="underlined"
           class="px-2"
         ></v-text-field>
-        <v-row class=" content-center  py-4 px-2">
-          <v-col cols="3">
-          </v-col>
-          <v-col cols="6">
+        <div class="flex content-center gap-2 py-4 px-2">
+          <v-spacer></v-spacer>
             <v-btn variant="outlined" @click="login"> 登入 </v-btn>
-          </v-col>
-          <v-col cols="3">
             <v-btn variant="text" @click="re = !re" > 註冊 </v-btn>
-          </v-col>
-        </v-row>
+        </div>
         
       </v-container>
     </v-card>
 
-    <v-card class="mx-auto px-4 py-2" max-width="344" title="帳號註冊" v-if="re">
+    <v-card class="mx-auto px-4 py-2 w-[30vw] min-w-[300px]" v-if="re">
+      <v-card-title class="flex items-center font-1000 ml-4">
+        帳號註冊
+        <v-spacer />
+        <v-btn variant="text" icon @click="dialogVisible = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-card-title>
       <v-container>
         <v-text-field
           v-model="res_data.Name"
@@ -145,6 +170,7 @@ const login = async () => {
       <v-divider></v-divider>
 
       <v-card-actions>
+        <v-btn prepend-icon="mdi-chevron-left" @click="re = !re">登入</v-btn>
         <v-spacer></v-spacer>
 
         <v-btn color="success">
@@ -154,7 +180,7 @@ const login = async () => {
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-container>
+  </v-dialog>
 </template>
 
 <style scoped></style>

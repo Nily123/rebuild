@@ -141,7 +141,7 @@ countdata();
 </script>
 
 <template>
-  <v-dialog v-model="localVisible" persistent max-width="800">
+  <v-dialog v-model="localVisible" persistent max-width="800" class=" text-3 sm-text-4">
     <v-card>
       <v-card-title class="flex items-center font-1000 ml-4">
         結帳流程
@@ -152,12 +152,12 @@ countdata();
       </v-card-title>
 
 
-      <v-card-text>
+      <v-card-text class=" text-3 sm-text-4">
         <v-stepper v-model="step" :items="items" show-actions>
           <template #item.1>
-            <h3 class="text-h6">商品清單</h3>
+            <h3 class="sm-text-h6 text-h8">商品清單</h3>
             <v-sheet border>
-              <v-table>
+              <v-table class=" text-3 sm-text-4">
                 <thead>
                   <tr>
                     <th>商品</th>
@@ -167,9 +167,9 @@ countdata();
                 </thead>
                 <tbody>
                   <tr v-for="(product, index) in products" :key="index">
-                    <td>{{ product.name }} - {{ product.capacity }}ml </td>
-                    <td class="text-end">{{ product.quantity }}</td>
-                    <td class="text-end">{{ product.quantity * product.price }}</td>
+                    <td class="text-3 sm-text-4">{{ product.name }} - {{ product.capacity }}ml </td>
+                    <td class="text-end text-3 sm-text-4">{{ product.quantity }}</td>
+                    <td class="text-end text-3 sm-text-4">{{ product.quantity * product.price }}</td>
                   </tr>
                   <tr>
                     <th>總計</th>
@@ -183,16 +183,19 @@ countdata();
 
           <template #item.2>
             <h3 class="text-h6"><v-icon icon="mdi-package" class="mx-2"></v-icon>取貨方式</h3>
-            <div class="flex">
-                <v-radio-group v-model="shipping" defaults-target="store" @update:model-value="countship()">
+            <v-row class="">
+                <v-col>
+                <v-radio-group class="w-[200px]" v-model="shipping" defaults-target="store" @update:model-value="countship()">
                   <v-radio  label="門市取貨" value="store"></v-radio>
                   <v-radio label="宅配到府" value="home"></v-radio>
                   <v-radio label="超商、蝦皮取貨" value="third_way"></v-radio>
                 </v-radio-group>
-                <div >
+                </v-col>
+                <v-col>
+                <div class="">
                     <div v-show="shipping == 'store'">
                         <v-select
-                          width="300"
+                          class="sm-w-[300px] w-[200px]"
                           clearable
                           label="選取門市"
                           v-model="ship_store"
@@ -206,13 +209,13 @@ countdata();
                           label="配送地址"
                           prepend-icon="mdi-truck"
                           variant="outlined"
-                          width="400"
+                          class="sm-w-[300px] w-[200px]"
                           v-model="ship_home"
                         ></v-text-field>
                     </div>
                     <div v-show="shipping == 'third_way'">
                         <v-select
-                          width="300"
+                          class="sm-w-[300px] w-[200px]"
                           clearable
                           label="選取通路"
                           v-model="ship_third_way0"
@@ -225,40 +228,40 @@ countdata();
                           label="門市名稱"
                           prepend-icon="mdi-store-marker"
                           variant="outlined"
-                          width="400"
+                          class="sm-w-[300px] w-[200px]"
                           v-model="ship_third_way1"
                         ></v-text-field>
                     </div>
-                </div>
-            </div>
+                </div></v-col>
+            </v-row>
           </template>
 
           <template #item.3>
-            <h3 class="text-h6">送出帳單</h3>
+            <h3 class="text-h6 text-3 sm-text-4">送出帳單</h3>
             <v-sheet border>
               <v-table>
                 <thead>
                   <tr>
-                    <th>商品</th>
-                    <th class="text-end">數量</th>
-                    <th class="text-end">價錢</th>
+                    <th class=" text-3 sm-text-4">商品</th>
+                    <th class="text-end text-3 sm-text-4">數量</th>
+                    <th class="text-end text-3 sm-text-4">價錢</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(product, index) in products" :key="index">
-                    <td>{{ product.name }} - {{ product.capacity }} ml </td>
-                    <td class="text-end">{{ product.quantity }}</td>
-                    <td class="text-end">{{ product.quantity * product.price }}</td>
+                    <td class=" text-3 sm-text-4">{{ product.name }} - {{ product.capacity }} ml </td>
+                    <td class="text-end text-3 sm-text-4">{{ product.quantity }}</td>
+                    <td class="text-end text-3 sm-text-4">{{ product.quantity * product.price }}</td>
                   </tr>
                   <tr>
-                    <td>配送</td>
+                    <td class=" text-3 sm-text-4">配送</td>
                     <td></td>
-                    <td class="text-end">{{ shipping_cost }}</td>
+                    <td class="text-end text-3 sm-text-4">{{ shipping_cost }}</td>
                   </tr>
                   <tr>
-                    <th>總計</th>
+                    <th class=" text-3 sm-text-4">總計</th>
                     <th></th>
-                    <th class="text-end">${{ total }}</th>
+                    <th class="text-end text-3 sm-text-4">${{ total }}</th>
                   </tr>
                 </tbody>
               </v-table>
@@ -266,7 +269,7 @@ countdata();
           </template>
                
           <template #item.4>
-                <div class="size-6 mx-auto w-[400px] h-[200px] text-center items-center" >
+                <div class="size-6 mx-auto w-[200px] sm-w-[400px] h-[200px] text-center items-center" >
                   <h3> 訂單已送出</h3> 
                   <v-icon icon="mdi-check-circle-outline" size="100" color="green"></v-icon>
                   
