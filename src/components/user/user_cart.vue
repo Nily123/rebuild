@@ -105,7 +105,7 @@ getdata();
       </v-row>
       <v-row
         v-if="data"
-        v-for="(item, index) in data"
+        v-for="item in data"
         :key="item.special_code"
         class="w-[100%] items-center border-t-solid border-t-1px border-[#BC8E40] text-3 sm-text-4"
       >

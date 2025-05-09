@@ -37,11 +37,17 @@ const validate = async () => {
         email: email.value,
         password: newPassword.value || undefined,
       });
-
-      alert("更新成功！");
-      passwordDialog.value = false;
-      newPassword.value = "";
-      confirmPassword.value = "";
+      if(res.status == 200){
+        alert("更新成功！");
+        passwordDialog.value = false;
+        newPassword.value = "";
+        confirmPassword.value = "";
+      }else{
+        alert("更新失敗!");
+        newPassword.value = "";
+        confirmPassword.value = "";
+      }
+      
 
       // 重新更新 store 的 user
       if (store.user?.id) {
