@@ -1,0 +1,1 @@
+import{l as t}from"./index-DIDF5jaD.js";const e=()=>t.get("/products/product_name"),s=r=>t.get(`/products/${r}`),c=()=>t.get("/products/all_productcard"),p=()=>t.get("/products/top5"),u=()=>t.get("/products/new5"),n=r=>t.post("/explores",r);export{u as a,e as b,c,s as d,p as g,n as p};
