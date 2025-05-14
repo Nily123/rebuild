@@ -7,7 +7,7 @@ const store = useUserStore();
 const form = ref();
 const name = ref(store.user?.username);
 const email = ref(store.user?.email);
-
+const phone =ref(store.user?.phone);
 const passwordDialog = ref(false);
 const newPassword = ref("");
 const confirmPassword = ref("");
@@ -20,6 +20,12 @@ const nameRules = [
 const emailRules = [
   (v: any) => !!v || "Email 必填",
   (v: string) => /.+@.+\..+/.test(v) || "Email 格式錯誤",
+];
+
+const phoneRules = [
+  (v: any) => !!v || "電話必填",
+  (v: string) => /^\d+$/.test(v) || "電話格式錯誤，僅能包含數字",
+  (v: string) => v.length === 10 || "電話號碼必須為10碼"
 ];
 
 const validate = async () => {
@@ -36,6 +42,7 @@ const validate = async () => {
         username: name.value,
         email: email.value,
         password: newPassword.value || undefined,
+        phone: phone.value
       });
       if(res.status == 200){
         alert("更新成功！");
@@ -101,7 +108,14 @@ const savePassword = () => {
             required
             variant="outlined"
           ></v-text-field>
-
+          <v-text-field
+            v-model="phone"
+            color="#E6AE4F"
+            :rules="phoneRules"
+            label="電話"
+            required
+            variant="outlined"
+          ></v-text-field>
           <div class="d-flex flex-column">
             <v-btn
               variant="outlined"

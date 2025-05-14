@@ -3,7 +3,7 @@ import router from "@/router";
 import { useStateStore, useUserStore } from "@/stores/index";
 import { computed, ref, watch } from "vue";
 import Login from "@/pages/login.vue";
-
+const baseUrl = import.meta.env.BASE_URL;
 const userStore = useUserStore();
 const stateStore = useStateStore();
 const member = ref(false);
@@ -20,7 +20,7 @@ const logout = () => {
   member.value = false;
   userStore.clearUser();
   dialog.value = false;
-  router.push('/')
+  history.go(0);
 };
 const mount = () => {
   console.log("mounttt");
@@ -38,7 +38,7 @@ watch(() => stateStore.justlogin, (val) => {
 });
 
 const toindex = () => {
-  router.push("/");
+  router.push("/rebuild");
 };
 mount();
 </script>
@@ -53,7 +53,7 @@ mount();
         class="w-[100vw] max-h-[60px] flex z-99 hover:bg-red"
       >
         <v-img
-          src="/rebuild.png"
+          :src="`${baseUrl}rebuild.png`"
           class="max-w-[200px] object-cover contnet-center mt-1 ml-[calc(50%-100px)] z-9 cursor-pointer"
           @click="toindex"
         />
@@ -89,7 +89,7 @@ mount();
             <v-divider></v-divider>
 
             <v-list v-if="isLoggedIn">
-              <v-list-item v-if="role === 'customer'">
+              <v-list-item>
                 <v-btn
                   class="hover:text-[#DBAD64]"
                   variant="text"
@@ -99,7 +99,7 @@ mount();
                   帳號資訊
                 </v-btn>
               </v-list-item>
-              <v-list-item v-if="role === 'customer'">
+              <v-list-item >
                 <v-btn
                   class="hover:text-[#DBAD64]"
                   variant="text"
@@ -109,7 +109,7 @@ mount();
                   我的收藏
                 </v-btn>
               </v-list-item>
-              <v-list-item v-if="role === 'customer'">
+              <v-list-item >
                 <v-btn
                   class="hover:text-[#DBAD64]"
                   variant="text"
@@ -119,7 +119,7 @@ mount();
                   購物車
                 </v-btn>
               </v-list-item>
-              <v-list-item v-if="role === 'customer'">
+              <v-list-item>
                 <v-btn
                   class="hover:text-[#DBAD64]"
                   variant="text"
@@ -154,7 +154,7 @@ mount();
         <template v-slot:extension v-if="isHovering">
           <v-tabs class="bg-white w-full z-98">
             <v-spacer></v-spacer>
-            <v-tab text="首頁" exact to="/" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
+            <v-tab text="首頁" exact to="/rebuild" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
             <v-tab text="香氛" exact to="/products" color="amber-lighten-1"  class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
             <v-tab text="品牌" exact to="/vendor" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>
             <v-tab text="探索" exact to="/explore" color="amber-lighten-1" class="xl-w-[10vw] xl-text-[16px] font-500 hover:font-1000 hover:text-[#EAB653]"></v-tab>

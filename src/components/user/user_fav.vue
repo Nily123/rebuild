@@ -19,6 +19,10 @@ interface product_info {
     香調: string[];
   };
   vendor_name: string;
+  variant_prices:{
+    price:number;
+    capacity:string;
+  }[];
 }
 const store = useUserStore();
 const data =ref<product_info[]>()
@@ -34,16 +38,14 @@ const getdata = async()=>{
             console.log(err);
         }
     }
-    
-
 }
 getdata();
 </script>
 
 <template>
-    <v-container class="mx-2">
-        <v-row >
-            <v-col v-for="i in data">
+    <v-container class="mx-a">
+        <v-row class="mx-a">
+            <v-col v-for="i in data" class="flex-grow-0">
                 <Product_card :prop_data="i"></Product_card>
             </v-col>
               

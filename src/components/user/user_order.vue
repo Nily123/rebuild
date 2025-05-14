@@ -87,7 +87,7 @@ get_data();
 </script>
 
 <template>
-  <v-container class="sm-w-[80vw] w-[90vw] px-4 m-a text-center">
+  <v-container class="sm-w-[80vw] w-[90vw] px-a m-a text-center">
     <h3>訂單資訊</h3>
     <v-expansion-panels v-model="panel" multiple class="sm-w-80% w-100% m-a mt-4">
       <v-expansion-panel v-for="i in data">

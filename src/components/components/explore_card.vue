@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-
+const baseUrl = import.meta.env.BASE_URL;
 const op = ref({
   autoplay: true,
   loop: true,
@@ -36,10 +36,10 @@ onBeforeUnmount(() => {
   >
     <div class="absolute z-10 backdrop-hue-rotate-180 w-full">
       <v-img
-        src="/02.png"
+        :src="`${baseUrl}02.png`"
         fill
         position="20% 50%"
-        class="overflow-hidden max-h-[500px] opacity-50"
+        class="overflow-hidden max-h-[500px] opacity-30"
         :style="{ width: windowWidth*0.9 + 'px', height: dynamicHeight + 'px' }"
       />
       <!-- <h3
@@ -50,11 +50,11 @@ onBeforeUnmount(() => {
       </h3> -->
     </div>
     <div class="z-0  w-full " :style="{ width: windowWidth + 'px', height: dynamicHeight + 'px' }">
-      <video-player class="w-[1920px]" src="/t0.mp4" :options="op"/>
+      <video-player class="w-[1920px]":src="`${baseUrl}t0.mp4`" :options="op"/>
     </div>
-    <h3 class="text-white z-10 absolute right-[2%] sm-right-[11vw] top-[5%] sm-top-[40%] md-top-[40%] font-800 text-left lg-text-8">不知道什麼樣的香味適合你嗎?<br/>一起來尋找屬於你的味道~</h3>
+    <h3 class="text-white z-10 absolute right-[2%] sm-right-[5vw] top-[5%] sm-top-[40%] md-top-[40%] font-800 text-left lg-text-8">不知道什麼樣的香味適合你嗎?<br/>一起來尋找屬於你的味道~</h3>
     <v-btn
-      class="z-10 absolute right-[3vw] sm-right-[15vw] top-[60%] sm-top-[70%] font-800 text-3 p-2 lg-px-4 lg-py-5 sm-text-5 md-text-6"
+      class="z-10 absolute right-[3vw] sm-right-[5vw] top-[60%] sm-top-[70%] font-800 text-3 p-2 lg-px-4 lg-py-5 sm-text-5 md-text-6"
       size=""
       variant="outlined"
       color="white"

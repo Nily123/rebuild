@@ -68,7 +68,7 @@ init();
     <div class="sm-pl-4 border-l-solid border-l-2px border-[#EDC17B] sm-text-[16px] text-[10px]">
         <v-autocomplete
           variant="underlined"
-          class="ml-2 sm-ml-0 w-[80px] sm-w-[15vw] sm-max-w-[200px] text-[8px]"
+          class="ml-2 sm-ml-0  sm-w-[15vw] sm-max-w-[200px] text-[8px]"
           clearable
           chips
           label="商品名稱搜尋"

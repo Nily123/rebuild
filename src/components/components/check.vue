@@ -174,7 +174,7 @@ countdata();
                   <tr>
                     <th>總計</th>
                     <th></th>
-                    <th class="text-end">${{ subtotal }}</th>
+                    <th class="text-end" style="font-weight: 800 !important;">${{ subtotal }}</th>
                   </tr>
                 </tbody>
               </v-table>
@@ -261,7 +261,7 @@ countdata();
                   <tr>
                     <th class=" text-3 sm-text-4">總計</th>
                     <th></th>
-                    <th class="text-end text-3 sm-text-4">${{ total }}</th>
+                    <th class="text-end text-3 sm-text-4"  style="font-weight: 800 !important;">${{ total }}</th>
                   </tr>
                 </tbody>
               </v-table>

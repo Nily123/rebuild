@@ -37,6 +37,10 @@ interface product_info {
     香調: string[];
   };
   vendor_name: string;
+  variant_prices:{
+    price:number;
+    capacity:string;
+  }[];
 }
 
 const qus0: qus = {

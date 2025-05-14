@@ -2,7 +2,7 @@
 import {getAllActivity} from '@/api/acivity';
 import { computed, ref } from 'vue';
 
-const data = ref();
+const data =  ref<any[]>([]);
 const sortOrder = ref<'desc' | 'asc'>('desc')
 
 const formatDate = (dateStr: string) => {

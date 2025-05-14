@@ -14,6 +14,7 @@ interface User {
   username: string
   email: string
   role: string
+  phone:number
   token: string
   favorites: number[]
   carts: CartItem[]
@@ -68,7 +69,9 @@ export const useUserStore = defineStore('user', {
       })
 
       if (success) {
+        console.log("del fav suc")
         this.user.favorites = this.user.favorites.filter((id: number) => id !== product_id)
+        history.go(0);
       }
     },
 

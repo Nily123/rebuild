@@ -31,6 +31,10 @@ interface ProductInfo {
     香調: string[];
   };
   vendor_name: string;
+  variant_prices:{
+    price:number;
+    capacity:string;
+  }[];
 }
 
 const route = useRoute("/vendor/[VendorName]");

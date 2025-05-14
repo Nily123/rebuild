@@ -7,6 +7,7 @@ interface product_info {
   id: number;
   product_id: number;
   special_code: string;
+  special_code0: string;
   image_url: string;
   sequence: number;
   product_name: string;
@@ -18,8 +19,13 @@ interface product_info {
     香調: string[];
   };
   vendor_name: string;
-  special_code0: string;
+  variant_prices:{
+    price:number;
+    capacity:string;
+  }[];
 }
+const windowWidth = ref(window.innerWidth);
+const drawer = ref(false);
 const ids = ref<product_info[]>([]);
 const fil_ids = ref<product_info[]>([]);
 const getpro_ids = async () => {
@@ -87,18 +93,37 @@ const filteredProducts = computed(() => {
       });
   }
 });
+
+const top =()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+}
 getpro_ids();
 </script>
 
 <template>
   <v-container class="w-full sm-w-[85%] flex items-start">
     <product_filter
+      v-if="windowWidth > 425"
       @update-filters="handleFilterUpdate"
       class="sm-w-20% w-[30%] sm-px-4"
     ></product_filter>
-
+    <v-navigation-drawer
+      v-model="drawer"
+      mobile-breakpoint="sm"
+      :location="$vuetify.display.sm ? 'bottom' : 'left'"
+      temporary
+      v-if="windowWidth <= 425"
+    >
+      <product_filter
+        @update-filters="handleFilterUpdate"
+        class="w-[100%] sm-px-4"
+      ></product_filter>
+    </v-navigation-drawer>
     <v-row
-      class="sm-w-80% w-[70%]"
+      class="sm-w-80% w-[70%] mr-a"
       align-item="left"
       align-content="center"
       justify="space-evenly"
@@ -112,6 +137,31 @@ getpro_ids();
         <product_card :prop_data="product"></product_card>
       </v-col>
     </v-row>
+    <div v-if="windowWidth <= 425" class="bg-w border-1px border-solid bg-[#FFE38D] border-[#F3C251] w-[40px] h-[40px] fixed bottom-[45px] right-[3%] rounded-full ">
+    <v-speed-dial
+      location="top left"
+      transition="slide-y-reverse-transition"
+      v-show="windowWidth <= 425"
+      close-on-content-click
+    >
+      <template v-slot:activator="{ props: activatorProps }">
+        <v-fab
+          class="fixed bottom-[55px] right-[8%] text-[#F3C251]"
+          color="#FFE38D"
+          v-bind="activatorProps"
+          size="4"
+          icon="mdi-format-list-bulleted"
+        ></v-fab>
+      </template>
+      <v-btn
+        key="1"
+        icon="mdi-filter-outline"
+        @click.stop="drawer = !drawer"
+      ></v-btn>
+      <v-btn key="2" icon="mdi-cart-outline" to="/user/user_order"></v-btn>
+      <v-btn key="3" icon="mdi-chevron-up" @click="top()"></v-btn>
+    </v-speed-dial>
+    </div>
   </v-container>
 </template>
 

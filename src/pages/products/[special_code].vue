@@ -3,7 +3,9 @@ import { useRoute } from "vue-router";
 import { getProductBySC } from "@/api/product";
 import { ref } from "vue";
 import { useUserStore } from "@/stores";
-import { addItemToCart } from '@/api/cart';
+import { addItemToCart } from "@/api/cart";
+import { getvendor_id } from "@/api/vendor";
+import Product_card from "@/components/components/product_card.vue";
 
 interface data {
   product_info: {
@@ -19,6 +21,7 @@ interface data {
     };
     vendor_name: string;
     slug: string;
+    vendor_id:number;
   };
   products_variants: {
     special_code: string;
@@ -26,7 +29,7 @@ interface data {
     price: number;
   }[];
   product_images_common: {
-    image_url:string
+    image_url: string;
   }[];
   product_images_variants: {
     special_code: string;
@@ -36,6 +39,31 @@ interface data {
     }[];
   }[];
 }
+interface product_info {
+  id: number;
+  product_id: number;
+  special_code: string;
+  special_code0: string;
+  image_url: string;
+  sequence: number;
+  product_name: string;
+  description: string;
+  ingredients: {
+    前調: string[];
+    中調: string[];
+    後調: string[];
+    香調: string[];
+  };
+  vendor_name: string;
+  variant_prices:{
+    price:number;
+    capacity:string;
+  }[];
+}
+const ingredients0 = ref<string[]>([]);
+const ingredients1 = ref<string[]>([]);
+const ingredients2 = ref<string[]>([]);
+const ingredients_all = ref<string[]>([]);
 const store = useUserStore();
 const fav = ref(false);
 const route = useRoute("/products/[special_code]");
@@ -45,8 +73,9 @@ const select_variant = ref<string>("");
 const buy_number = ref<number>(1);
 const variant_image_url = ref<string[]>([]);
 const variant_price = ref<number>(999);
-const cartalter1 =ref<boolean>(false);
-const cartalter0 =ref<boolean>(false);
+const cartalter1 = ref<boolean>(false);
+const cartalter0 = ref<boolean>(false);
+const moreproductData =ref();
 let pro_id: number;
 // 取得資料
 const getdata = async (id: string | number) => {
@@ -61,11 +90,44 @@ const getdata = async (id: string | number) => {
       if (pro_id) {
         fav_check(pro_id);
       }
+      if (data.value?.product_info.ingredients.前調) {
+        ingredients0.value = data.value.product_info.ingredients.前調;
+      }
+      if (data.value?.product_info.ingredients.中調) {
+        ingredients1.value = data.value.product_info.ingredients.中調;
+      }
+      if (data.value?.product_info.ingredients.後調) {
+        ingredients2.value = data.value.product_info.ingredients.後調;
+      }
+      if (data.value?.product_info.ingredients.香調) {
+        ingredients_all.value = data.value.product_info.ingredients.香調;
+      }
+      console.log(ingredients0.value);
+      console.log(ingredients1.value);
+      console.log(ingredients2.value);
+      console.log(ingredients_all.value);
+      fetchData();
     }
   } catch (err) {
     console.log(err);
   }
 };
+const fetchData = async () => {
+  try {
+    if (data.value) {
+      const id = data.value.product_info.vendor_id;
+      const detailRes = await getvendor_id(id);
+      if (detailRes.status === 200) {
+        moreproductData.value = detailRes.data
+          .filter((ele: product_info) => ele.id !== id)
+          .slice(0, 3);
+      }
+    }
+  } catch (err) {
+    console.error('fetchData error:', err);
+  }
+};
+
 
 // 更新圖片
 const updateVariantData = (variant_code: string) => {
@@ -110,39 +172,35 @@ const fav_change = (pro_id: number) => {
 };
 
 //購物車
-const addToCart = async() =>{
-  if(store.user){
-    const payload ={
-    user_id: store.user?.id,
-    special_code: select_variant.value,
-    quantity: buy_number.value
-    }
-    try{
-      const res = await addItemToCart (payload);
-      if(res.status == 200)
-      {
+const addToCart = async () => {
+  if (store.user) {
+    const payload = {
+      user_id: store.user?.id,
+      special_code: select_variant.value,
+      quantity: buy_number.value,
+    };
+    try {
+      const res = await addItemToCart(payload);
+      if (res.status == 200) {
         cartalter1.value = true;
-      }else{
+      } else {
         cartalter0.value = true;
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
-    
-    
   }
-  
-}
+};
 getdata(special_code);
 </script>
 
 <template>
-  <v-container max-width="1400">
+  <v-container max-width="1400" class="mt-11">
     <v-row class="pb-4">
       <v-col cols="12" sm="6">
-        <v-carousel  mandatory touch  show-arrows="hover" model-value="0">
+        <v-carousel mandatory touch show-arrows="hover" model-value="0">
           <v-carousel-item
-            v-for="(i,key) in variant_image_url"
+            v-for="(i, key) in variant_image_url"
             :key="key"
             :src="i"
             :value="key"
@@ -153,14 +211,14 @@ getdata(special_code);
 
       <v-col cols="12" sm="6" class="md-min-h-[500px]">
         <v-row class="mt-8 md-min-h-[150px] text-left mx-4">
-          <v-col class="text-10">
+          <v-col class="sm-text-10 text-6">
             {{ data?.product_info.name }}
           </v-col>
         </v-row>
 
         <v-row class="md-min-h-[40px] content-center text-left mx-4">
           <RouterLink :to="`/vendor/${data?.product_info.slug}`">
-            <v-col class="text-left text-4">
+            <v-col class="text-left text-3 sm-text-4">
               {{ data?.product_info.vendor_name }}
             </v-col>
           </RouterLink>
@@ -218,7 +276,7 @@ getdata(special_code);
           </v-col>
 
           <v-spacer></v-spacer>
-          <v-col  cols="12" sm="4">
+          <v-col cols="12" sm="4">
             <v-btn
               variant="flat"
               rounded="xl"
@@ -245,65 +303,105 @@ getdata(special_code);
       <v-spacer></v-spacer>
     </v-row>
     <v-divider></v-divider>
-    <v-card class="my-6">
-      <v-card-item
-        v-for="([key, value], index) in Object.entries(
-          data?.product_info.ingredients || {}
-        )"
-        :key="index"
-        :v-if="value.length > 0"
-      >
-        <v-card-title class="text-lg font-bold">{{ key }}</v-card-title>
-        <v-card-text>
-          {{ value.join("、") }}
+    <v-card class="my-6 bg-white/50 border-[#ECBD69] border-solid border-1px">
+      <v-row class="justify-center">
+      <v-col  cols="auto" sm="12" v-if="ingredients_all.length > 0" class="sm-border-b-1px sm-border-b-solid sm-border-[#E9B351]">
+      <v-card-item >
+        <v-card-title class=" font-bold sm-text-6 text-4">香調</v-card-title>
+        <v-card-text class="flex gap-2 text-center justify-center sm-text-5 text-4">
+          <div
+            v-for="(i, index) in ingredients_all"
+            :key="index"
+            class="flex gap-2"
+          >
+            <div>{{ i }}</div>
+            <div v-if="index + 1 != ingredients_all.length">、</div>
+          </div>
+        </v-card-text>
+      </v-card-item></v-col>
+      
+        <v-col cols="auto" sm="auto"  v-if="ingredients0.length > 0">
+          <v-card-item>
+        <v-card-title class=" font-bold sm-text-6 text-4">前調</v-card-title>
+        <v-card-text class="flex gap-2 text-center justify-center sm-text-5 text-4 max-w-[80vw] flex-wrap">
+          <div
+            v-for="(i, index) in ingredients0"
+            :key="index"
+            class="flex gap-2"
+          >
+            <div>{{ i }}</div>
+            <div v-if="index + 1 != ingredients0.length">、</div>
+          </div>
         </v-card-text>
       </v-card-item>
+        </v-col>
+        <v-col cols="auto" sm="auto"  v-if="ingredients1.length > 0">
+          <v-card-item>
+        <v-card-title class=" font-bold sm-text-6 text-4">中調</v-card-title>
+        <v-card-text class="flex gap-2 text-center justify-center sm-text-5 text-4 max-w-[80vw] flex-wrap">
+          <div
+            v-for="(i, index) in ingredients1"
+            :key="index"
+            class="flex gap-2"
+          >
+            <div>{{ i }}</div>
+            <div v-if="index + 1 != ingredients1.length">、</div>
+          </div>
+        </v-card-text>
+      </v-card-item>
+        </v-col>
+        <v-col cols="auto" sm="auto" v-if="ingredients2.length > 0">
+          <v-card-item >
+        <v-card-title class=" font-bold sm-text-6 text-4">後調</v-card-title>
+        <v-card-text class="flex gap-2 text-center justify-center sm-text-5 text-4 max-w-[80vw] flex-wrap">
+          <div
+            v-for="(i, index) in ingredients2"
+            :key="index"
+            class="flex gap-2"
+          >
+            <div>{{ i }}</div>
+            <div v-if="index + 1 != ingredients2.length">、</div>
+          </div>
+        </v-card-text>
+      </v-card-item>
+        </v-col>
+      </v-row>
     </v-card>
-    <v-divider></v-divider>
-    <v-row>
-      
+  
+    <v-row class="border-t ">
       <v-col cols="10" v-for="i in data?.product_images_common" class="m-a">
-        <v-img :src="i.image_url">
-        </v-img>
+        <v-img :src="i.image_url"> </v-img>
       </v-col>
-      
     </v-row>
+    <div class="my-4">
+      <h3 class="text-6  py-4">相似的商品</h3>
+      <v-row class="border-[#ECBD69] rounded justify-center flex-grow-0 bg-white/80 border-solid border-1px">
+        <v-col v-for="i in moreproductData">
+          <Product_card :prop_data="i"></Product_card>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
   <v-snackbar
-      v-model="cartalter1"
-      :timeout="5000"
-      color=""
-      class=""
-      location="top"
-    >
-      成功加入購物車!
+    v-model="cartalter1"
+    :timeout="5000"
+    color=""
+    class=""
+    location="top"
+  >
+    成功加入購物車!
 
-      <template v-slot:actions>
-        <v-btn
-          color="blue"
-          variant="text"
-          @click="cartalter1 = false"
-        >
-          x
-        </v-btn>
-      </template>
-    </v-snackbar>
-    <v-snackbar
-      v-model="cartalter0"
-      :timeout="5000"
-    >
-      加入購物車失敗 QAQ 
+    <template v-slot:actions>
+      <v-btn color="blue" variant="text" @click="cartalter1 = false"> x </v-btn>
+    </template>
+  </v-snackbar>
+  <v-snackbar v-model="cartalter0" :timeout="5000">
+    加入購物車失敗 QAQ
 
-      <template v-slot:actions>
-        <v-btn
-          color="blue"
-          variant="text"
-          @click="cartalter0 = false"
-        >
-          x
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <template v-slot:actions>
+      <v-btn color="blue" variant="text" @click="cartalter0 = false"> x </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <style scoped></style>
