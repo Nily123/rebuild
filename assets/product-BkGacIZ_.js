@@ -1,0 +1,1 @@
+import{e as t}from"./index-CY5MZRSK.js";const o=()=>t.get("/products/product_name"),s=r=>t.get(`/products/${r}`),c=()=>t.get("/products/all_productcard"),p=()=>t.get("/products/top5"),u=()=>t.get("/products/new5"),n=r=>t.post("/explores",r);export{c as a,s as b,p as c,u as d,o as g,n as p};
