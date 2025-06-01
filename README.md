@@ -5,7 +5,6 @@
 本專案為 Vue3 + typrscript + Vite 建構。<br/>
 本專案的後端api以及mysql資料庫也是自己建構，前後端專案都使用google cloud platform 中的cloud run 搭配 cloud build 進行自動部屬，mysql也放在置於cloud sql中。<br/>
 若有興趣請聯繫我: jemmy.chao1@gmail.com 來為您介紹。<br/>
-目前只開發完客戶端頁面，營業管理端還在開發中<br/>
 # 相關套件:<br/> 
     Css: Unocss
     切版工具: Veutify
@@ -15,9 +14,13 @@
  # 專案介紹 <br/>
     帳號及密碼部分可以自行註冊，由於驗證碼部分功能尚未實裝，請先輸入: 0000 即可通過 。
     若不想註冊直接體驗可使用已有的帳號密碼: 
-    帳號: bob.miller
-    密碼: mypass456
-
+    顧客:
+        帳號: bob.miller
+        密碼: mypass456
+    內部員工:
+        帳號:john.doe
+        密碼:pass1234
+        
 # 首頁:
 ![image](https://github.com/user-attachments/assets/d37af790-bee2-4255-b404-a3ac37e230b6)
 
@@ -51,4 +54,25 @@
 
 訂單:
 ![image](https://github.com/user-attachments/assets/79525c1c-5a73-423b-83eb-6c321b525655)
+
+# 管理功能
+## 帳號管理
+為避免登入功能影響，重設密碼等其餘動作並未實裝。僅提供搜索功能。
+![image](https://github.com/user-attachments/assets/9dc94f4d-515b-4422-882b-68c4079947be)
+
+# 商品管理
+商頻查詢，檢視、新增、編輯、刪除功能(刪除功能未對外開放)
+![image](https://github.com/user-attachments/assets/d2938ed8-3beb-4667-aa55-7cf7f93f30b6)
+![image](https://github.com/user-attachments/assets/8954741d-47b1-4bc9-83c8-858aca657a8a)
+![image](https://github.com/user-attachments/assets/e9892a01-3482-4dd2-af0d-6cf415110fe1)
+
+# 訂單管理
+以狀態搜尋訂單、檢視詳細資料、更新訂單狀態、變更訂單內容
+![image](https://github.com/user-attachments/assets/6a26a068-c8e9-41f9-ba7d-ea6bfead715d)
+
+# 活動管理
+活動的檢視、新增、編輯、刪除
+![image](https://github.com/user-attachments/assets/97c35e4b-61f3-4f5b-bbed-4be0d8a35e10)
+
+
 
