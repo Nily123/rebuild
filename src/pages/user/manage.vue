@@ -57,7 +57,7 @@ console.log(windowWidth);
           <manage_user/>
         </v-tabs-window-item>
 
-        <v-tabs-window-item value="manage_product" class="w-auto">
+        <v-tabs-window-item value="manage_product" class="sm-w-[70vw] w-[90vw] mx-0">
           <manage_product/>
         </v-tabs-window-item>
 

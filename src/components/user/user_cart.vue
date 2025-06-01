@@ -122,12 +122,12 @@ getdata();
             :src="item.image_url"
             max-width="50"
             cover
-            @click="$router.push(`/products/${item.special_code0}`)"
+            @click="router.push(`/products/${item.special_code0}`)"
           ></v-img
         ></v-col>
         <v-col
            cols="3" sm="5"
-          @click="$router.push(`/products/${item.special_code0}`)"
+          @click="router.push(`/products/${item.special_code0}`)"
         >
           {{ item.name }}
         </v-col>

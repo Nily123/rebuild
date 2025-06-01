@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { loginUser, registerUser, vertifyRegister } from "../api/auth";
-import { useStateStore, useUserStore } from '../stores/index'
-import router from "@/router";
+import { useUserStore } from '../stores/index'
 const userStore = useUserStore();
-const stateStore = useStateStore();
 interface RegisterPayload {
   account_name: string;
   username: string;
@@ -71,8 +69,7 @@ const login = async () => {
     });
     console.log("login successful!!")
     login_suc.value = true;
-    stateStore.justlogin = true;
-    router.push("/rebuild");
+    history.go(0);
   } catch (err) {
     login_err.value = true;
     console.log("Fail login!!");

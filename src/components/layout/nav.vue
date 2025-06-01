@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import router from "@/router";
-import { useStateStore, useUserStore } from "@/stores/index";
-import { computed, ref, watch } from "vue";
+import { useUserStore } from "@/stores/index";
+import { computed, ref} from "vue";
 import Login from "@/pages/login.vue";
 const baseUrl = import.meta.env.BASE_URL;
 const userStore = useUserStore();
-const stateStore = useStateStore();
 const member = ref(false);
 const name = ref("");
 const dialog = ref(false);
@@ -29,13 +28,6 @@ const mount = () => {
     role.value = userStore.user?.role;
   }
 };
-
-watch(() => stateStore.justlogin, (val) => {
-  if (val) {
-    stateStore.justlogin = false;
-    history.go(0);
-  }
-});
 
 const toindex = () => {
   router.push("/rebuild");

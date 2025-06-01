@@ -2,7 +2,6 @@
 import { ref, computed, watch } from 'vue'
 import { check } from '@/api/cart';
 
-const emit = defineEmits(['update:visible'])
 
 interface CartItem {
   id: number;
@@ -38,6 +37,7 @@ interface data{
   discount :number;
 }
 
+const emit = defineEmits(['update:visible'])
 const props = defineProps<{
   prop_data: {
     buyItems: BuyItem[],

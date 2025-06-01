@@ -20,14 +20,6 @@ interface User {
   carts: CartItem[]
 }
 
-export const useStateStore = defineStore('state',{
-  state: ()=>({
-    justlogin: false,
-  })
-}
-
-)
-
 // 正式建立 store
 export const useUserStore = defineStore('user', {
   state: () => ({

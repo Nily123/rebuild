@@ -43,3 +43,7 @@ export const getUserInfo = (id:number) =>{
 export const updateUserInfo = (data:updatepayload) => {
   return api.put("/users/update",data);
 }
+
+export const getAllUser = () =>{
+  return api.get(`/users/all_user`)
+}
